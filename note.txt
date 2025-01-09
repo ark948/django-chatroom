@@ -1,15 +1,23 @@
-project setup
-install djangorestframework 
-environment variables setup
-
-
-1. init djangoproject
-2. add environment variables using environs package
-3. init accounts app
-
-
-pip install environs[django]
+1. project setup:
+> python -m venv venv
+> venv/Scripts/activate
+> mkdir backend
+> pip install django
+> django-admin startproject core backend
+> python backend/manage.py runserver
 
 
 
-authentication -> session authentication
+
+2. project setup (continue)
+> pip install environs[django]
+> in settings.py initialize env
+> add .env (basedir is the parent of backend folder)
+to generate secure random string for SECRET_KEY:
+open python shell:
+    import secrets
+    secrets.urlsafe_token(38) (or provide another length)
+
+(3 environment vars are needed)
+debug, secret_key and db url
+> pip install dj-database-url
