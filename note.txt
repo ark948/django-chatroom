@@ -1,3 +1,6 @@
+people can join, start chatting with each other, as simple as that
+
+
 1. project setup:
 > python -m venv venv
 > venv/Scripts/activate
@@ -25,3 +28,17 @@ debug, secret_key and db url
 
 
 3. adding custom user model and authentication
+create model (i added email unique field, so later we can add email only login)
+(using django-allauth or custom authentication backend)
+add forms
+update admin
+create migrations
+> python backend/manage.py makemigrations accounts
+> python backend/manage.py migrate
+> python backend/manage.py createsuperuser
+
+user01
+user01@mail.com
+123
+
+
