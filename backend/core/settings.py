@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # local
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +86,7 @@ import dj_database_url
 DATABASES = {
     'default': 
         dj_database_url.config(
-            default="sqlite:///db.sqlite3",
+            default= "sqlite:///./db.sqlite3",
             conn_max_age=600,
             conn_health_checks=True
         )
@@ -130,3 +133,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# new configs
+AUTH_USER_MODEL = "accounts.CustomUser"

@@ -21,3 +21,7 @@ open python shell:
 (3 environment vars are needed)
 debug, secret_key and db url
 > pip install dj-database-url
+
+
+
+3. adding custom user model and authentication
