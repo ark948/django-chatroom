@@ -1,0 +1,15 @@
+project setup
+install djangorestframework 
+environment variables setup
+
+
+1. init djangoproject
+2. add environment variables using environs package
+3. init accounts app
+
+
+pip install environs[django]
+
+
+
+authentication -> session authentication
