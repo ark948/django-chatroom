@@ -1,4 +1,5 @@
-people can join, start chatting with each other, as simple as that
+people can join, start chatting with each other.
+and chat with support (which requires user roles)
 
 
 1. project setup:
@@ -41,4 +42,9 @@ user01
 user01@mail.com
 123
 
+update templates config var
 
+
+testuser01
+test02@gmail.com
+test123A*
