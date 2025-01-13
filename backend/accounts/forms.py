@@ -16,24 +16,14 @@ from accounts.models import CustomUser
 
 
 class CustomRegisterForm(UserCreationForm):
-    username = forms.CharField(
-            max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control', })
-        )
-    email = forms.EmailField(
-        required=True, widget=forms.TextInput(attrs={'placeholder': "Email", 'class': "form-control"})
-    )
+    username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control', }))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': "Email", 'class': "form-control"}))
+    password1 = forms.CharField(max_length=50, required=True, widget=forms.PasswordInput(
+                attrs={'placeholder': "Password", 'class': "form-control", 'data-toggle': "password", 'id':"password"}))
 
-    password1 = forms.CharField(
-        max_length=50, required=True, widget=forms.PasswordInput(
-                attrs={'placeholder': "Password", 'class': "form-control", 'data-toggle': "password", 'id':"password"}
-            )
-    )
-
-    password2 = forms.CharField(
-        max_length=50, required=True, widget=forms.PasswordInput(
+    password2 = forms.CharField(max_length=50, required=True, widget=forms.PasswordInput(
                 attrs={'placeholder': "Password", 'class': "form-control", 'data-toggle': "password", 'id':"password2"}
-            )
-    )
+            ))
 
     class Meta:
         model = CustomUser
@@ -57,7 +47,7 @@ class CustomLoginForm(AuthenticationForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ("username", "email")
+        fields = ("email", )
 
 
 
@@ -66,4 +56,4 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ("username", "email")
+        fields = ("email", )

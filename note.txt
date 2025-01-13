@@ -46,6 +46,12 @@ and chat with support (which requires user roles)
     add a pytest.ini to backend folder
 
 
+5. adding profile model in accounts app (on hold)
+    problem detected: upon creating new user from admin panel
+    our custom user model is wrong.
+    attempting to rebuild it...
+    (simpley delete the migration file, and the sqlite db file)
+    ok
 
 
 
@@ -60,11 +66,5 @@ and chat with support (which requires user roles)
 
 
 superuser:
-user01
-user01@mail.com
+user01@gmail.com
 123
-
-
-testuser01
-test02@gmail.com
-test123A*
