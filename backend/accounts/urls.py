@@ -12,9 +12,7 @@ from accounts.views import (
 # app_name="accounts" not doing this
 
 urlpatterns = [
-    path("signup/", CustomRegisterView.as_view(), name="accounts_signup"),
-    path("login/", CustomLoginView.as_view(), name="accounts_login"),
-    path('signup-v2/', signup_view, name="signup_v2"),
-    path('login-v2/', login_view, name="login_v2"),
+    path('signup/', signup_view, name="signup"),
+    path('login/', login_view, name="login"),
     path('logout/', logout_view, name='logout')
 ]

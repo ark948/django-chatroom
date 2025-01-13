@@ -22,6 +22,7 @@ from accounts.forms import (
 )
 
 
+# NOT USED
 class CustomRegisterView(View):
     form_class = CustomRegisterForm
     initial = {'key': "value"}
@@ -49,6 +50,8 @@ class CustomRegisterView(View):
         return render(request, self.template_name, {'form': "form"})
 
 
+
+# NOT USED
 class CustomLoginView(LoginView):
     form_class = CustomLoginForm
     template_name = "registration/login.html"
@@ -60,14 +63,16 @@ class CustomLoginView(LoginView):
 
 
 def signup_view(request: HttpRequest):
+    if request.user.is_authenticated:
+        messages.info(request, "You have already signed up.")
+        return redirect(reverse("home:index"))
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
-            messages.success(request=request, message=f"Account successfully created for {username} with email: {email}")
-            return redirect(reverse('accounts_login'))
+            messages.success(request=request, message=f"Account successfully created with email: {email}")
+            return redirect(reverse('login'))
         else:
             return render(request, template_name='registration/signup.html', context={'form': form})
     else:
@@ -77,6 +82,9 @@ def signup_view(request: HttpRequest):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        messages.info(request, "You have already logged in.")
+        return redirect(reverse('home:index'))
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -87,10 +95,11 @@ def login_view(request):
             return redirect(reverse('home:index'))
         if user is None:
             messages.error(request, "Invalid Credentials")
-            return redirect(reverse('login_v2'))
+            return redirect(reverse('login'))
     else:
         form = CustomLoginForm()
         return render(request, template_name='registration/login.html', context={'form': form})
+
 
 
 def logout_view(request: HttpRequest) -> HttpResponse:
