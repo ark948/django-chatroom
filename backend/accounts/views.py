@@ -1,6 +1,8 @@
 from urllib.parse import urlparse
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.contrib.auth.views import LoginView
 from django.urls import is_valid_path
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
@@ -25,46 +27,63 @@ from accounts.forms import (
 )
 
 
-# NOT USED
+
 class CustomRegisterView(View):
-    form_class = CustomRegisterForm
-    initial = {'key': "value"}
+    form_class = CustomUserCreationForm
     template_name = "registration/signup.html"
 
     # block accesss to this page for already logged in users
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
+            messages.info(request, "You have already registered.")
             return redirect(to='/')
         
         # else process dispatch as it otherwise normally would
         return super(CustomRegisterView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(initial=self.initial)
+        form = self.form_class()
         return render(request, self.template_name, {'form': form})
     
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}')
-            return redirect(to='accounts_login')
-        return render(request, self.template_name, {'form': "form"})
+            email = form.cleaned_data.get('email')
+            messages.success(request, f'Account created for {email}')
+            return redirect(reverse('accounts:login'))
+        return render(request, self.template_name, {'form': form})
+
+
+
+
+class CustomLoginView(LoginView):
+    form_class = CustomLoginForm
+    template_name = 'registration/login.html'
+    
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            messages.info(request, "You have already logged in.")
+            return redirect(to='/')
+        return super(CustomLoginView, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        next_page = self.request.POST['next']
+        if next_page == '':
+            next_page = '/' # if next param is not available, then redirect the user to the homepage after login.
+        return next_page
+    
+    # def form_valid(self, form: AuthenticationForm) -> HttpResponse:
+    #     response = super().form_valid(form)
+    #     next_url = self.request.GET.get('next') or self.request.POST.get('next')
+    #     if next_url:
+    #         return HttpResponseRedirect(f"{self.request.path}?next={next_url}")
+    #     return response
 
 
 
 # NOT USED
-class CustomLoginView(LoginView):
-    form_class = CustomLoginForm
-    template_name = "registration/login.html"
-
-    def form_valid(self, form):
-        return super(CustomLoginView, self).form_valid(form)
-
-
-
-
 def signup_view(request: HttpRequest):
     if request.user.is_authenticated:
         messages.info(request, "You have already signed up.")
@@ -84,6 +103,7 @@ def signup_view(request: HttpRequest):
 
 
 
+# NOT USED, Django docs recommended using class based LoginView
 def login_view(request):
     next_url = request.GET.get('next', '/')
     if request.user.is_authenticated:
@@ -108,6 +128,8 @@ def login_view(request):
     else:
         form = CustomLoginForm()
         return render(request, template_name='registration/login.html', context={'form': form})
+
+
 
 
 

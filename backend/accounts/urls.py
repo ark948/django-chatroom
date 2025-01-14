@@ -2,8 +2,8 @@ from django.urls import path
 
 
 from accounts.views import (
-    signup_view,
-    login_view,
+    CustomRegisterView,
+    CustomLoginView,
     logout_view,
     profile
 )
@@ -11,8 +11,8 @@ from accounts.views import (
 app_name="accounts"
 
 urlpatterns = [
-    path('signup/', signup_view, name="signup"),
-    path('login/', login_view, name="login"),
+    path('signup/', CustomRegisterView.as_view(), name="signup"),
+    path('login/', CustomLoginView.as_view(), name="login"),
     path('logout/', logout_view, name='logout'),
     path('profile/', profile, name='profile')
 ]

@@ -69,3 +69,8 @@ and maybe a blog with markdown support
 superuser:
 user01@gmail.com
 123
+
+
+user04
+user04@gmail.com
+test123*A

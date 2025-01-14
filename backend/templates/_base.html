@@ -26,14 +26,14 @@
           {% csrf_token %}
           <button type="submit">Log out</button>
         </form>
-      | <a href="{% url 'accounts:profile' %}">Profile</a>
       {% else %}
-        <p>You are not logged in</p>
+        <p> Message from Base: You are not logged in</p>
         <a href="{% url 'accounts:login' %}?next={{ request.path }}">Login</a> |
         <a href="{% url 'accounts:signup' %}">Sign Up</a>
     {% endif %}
 
     | <a href="{% url 'home:index' %}">Home Page</a>
+    | <a href="{% url 'accounts:profile' %}">Profile</a>
 
     {% block content %}
     {% endblock %}
