@@ -1,6 +1,9 @@
-from django.http import HttpRequest, HttpResponse
+from urllib.parse import urlparse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.urls import is_valid_path
 from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.urls import ( 
@@ -72,7 +75,7 @@ def signup_view(request: HttpRequest):
             form.save()
             email = form.cleaned_data.get('email')
             messages.success(request=request, message=f"Account successfully created with email: {email}")
-            return redirect(reverse('login'))
+            return redirect(reverse('accounts:login'))
         else:
             return render(request, template_name='registration/signup.html', context={'form': form})
     else:
@@ -82,6 +85,7 @@ def signup_view(request: HttpRequest):
 
 
 def login_view(request):
+    next_url = request.GET.get('next', '/')
     if request.user.is_authenticated:
         messages.info(request, "You have already logged in.")
         return redirect(reverse('home:index'))
@@ -91,11 +95,16 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
+            # ensure next url is safe
+            next_url = request.POST.get('next', next_url)
+            parsed_url = urlparse(next_url)
+            if not parsed_url.netloc and is_valid_path(next_url):
+                return HttpResponseRedirect(next_url)
             messages.success(request, "Successful login")
             return redirect(reverse('home:index'))
         if user is None:
             messages.error(request, "Invalid Credentials")
-            return redirect(reverse('login'))
+            return redirect(reverse('accounts:login'))
     else:
         form = CustomLoginForm()
         return render(request, template_name='registration/login.html', context={'form': form})
@@ -109,3 +118,10 @@ def logout_view(request: HttpRequest) -> HttpResponse:
     else:
         messages.error(request, "You are not logged in.")
         return redirect(reverse('home:index'))
+    
+
+
+
+@login_required
+def profile(request: HttpRequest):
+    return render(request, template_name='accounts/profile.html')

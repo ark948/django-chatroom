@@ -1,5 +1,6 @@
 people can join, start chatting with each other.
 and chat with support (which requires user roles)
+and maybe a blog with markdown support
 
 
 1. project setup:
