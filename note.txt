@@ -56,11 +56,36 @@ and maybe a blog with markdown support
 
 
 6. adding blog app with markdown:
+    approach 1:
     > pip install django-markdownx
     add to installed apps
     add to blog/urls.py (not sure it should be there)
     this requires static files to be configured
     skipping running collectstatic for now,
+
+    approach 2:
+    using django-summernote
+    add to installed apps
+    need to configure image uploads (media folder)
+    run migration
+    result: not bad, but requires internet to laod the editor
+
+    approach 3:
+    using django-ckeditor (ckeditor 4 will be installed)
+    > pip install django-ckeditor
+    add 'ckeditor' to installed apps
+    run collectstatic command again
+    specify CKEDITOR_BASEPATH (it must point to collected static files ckeditor folder)
+    result: FAILED
+    during runserver command, a warning from this package raises some deprecated issues, also was unable to display the widget
+
+    approach 4:
+    using django-ckeditor-5
+    
+    
+
+
+
     
 
 
@@ -73,6 +98,8 @@ and maybe a blog with markdown support
     all static files will be served as the following example:
     http://127.0.0.1:8000/static/base.css
     add static tag to base html template, and the static template tag with proper link
+    add STATIC_ROOT to settings.py
+    > python backend/manage.py collectstatic
     
 
     

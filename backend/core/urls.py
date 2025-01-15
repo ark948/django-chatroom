@@ -29,6 +29,12 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")), # default auth provided by django
     path('markdownx/', include('markdownx.urls')),
+    path('summernote/', include("django_summernote.urls")),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     path("blog/", include("blog.urls")),
     path('', include('home.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
