@@ -42,9 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party
+    'markdownx',
+
     # local
     'home',
-    'accounts'
+    'accounts',
+    'blog'
 ]
 
 MIDDLEWARE = [
@@ -139,3 +143,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # new configs
 AUTH_USER_MODEL = "accounts.CustomUser"
 LOGIN_URL = "accounts:login"
+STATICFILES_DIRS = [ BASE_DIR / "static" ]

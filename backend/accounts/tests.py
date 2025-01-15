@@ -24,6 +24,4 @@ def test_user_signup(client):
     })
 
     assert resposne.status_code == 200
-
-
     print(get_user_model().objects.all())

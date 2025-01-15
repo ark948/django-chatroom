@@ -55,6 +55,28 @@ and maybe a blog with markdown support
     ok
 
 
+6. adding blog app with markdown:
+    > pip install django-markdownx
+    add to installed apps
+    add to blog/urls.py (not sure it should be there)
+    this requires static files to be configured
+    skipping running collectstatic for now,
+    
+
+
+7. configuring static files
+    during development, django automatically serves static files. (not suitable for production at all)
+    it will look for static folder within each app, also not good.
+    we should create a project-level static folder similar approach to templates.
+    > mkdir static (needs to be next to manage.py)
+    inside it add a base.css file 
+    all static files will be served as the following example:
+    http://127.0.0.1:8000/static/base.css
+    add static tag to base html template, and the static template tag with proper link
+    
+
+    
+
 
 
 

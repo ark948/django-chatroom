@@ -4,4 +4,7 @@
 
 {% block content %}
   <h3>This is home</h3>
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'blog:add' %}">New blog post</a></p>
+  {% endif %}
 {% endblock %}
