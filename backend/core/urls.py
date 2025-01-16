@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")), # default auth provided by django
+    path('chat/', include('chat.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     path("blog/", include("blog.urls")),
     path('', include('home.urls'))

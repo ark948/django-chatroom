@@ -17,7 +17,7 @@ from blog.models import Post
 
 
 
-
+@login_required
 def add_post_view(request: HttpRequest):
     if request.method == "POST":
         form = forms.NewPostForm(request.POST)

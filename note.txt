@@ -81,9 +81,8 @@ and maybe a blog with markdown support
 
     approach 4:
     using django-ckeditor-5
-    
-    
-
+    result: OK
+    i will continue later with other features such as image upload and stuff
 
 
     
@@ -102,13 +101,27 @@ and maybe a blog with markdown support
     > python backend/manage.py collectstatic
     
 
+
+8. adding chat functionality
+    > pip install channels
+    > pip install daphne
+    add to settings.py
+    (daphne must come before statifiles and channels)
+    (channels should come at the bottom)
+    (also project needs to switch to ASGI)
+    add ASGI_APPLICATION to settings.py (this file should point to asgi.py from the core)
+    run server to see if it works
+    add chat app to top of the installed_apps
+    add CHANNEL_LAYERS to settings.py (this is actually the message broker, in production env, Redis is a better choice)
+    add chat urls
+    add template folder for chat app
+    add view
+    make and run migrations (only required because the tutorial was starting a fresh project)
+    add consumer.py to chat app (this is direclty related to websockets)
+    add routing.py to chat app (similar to urls.py, just differnt convention)
+    edit project/asgi.py
+    at this point, superuser must be created (if not)
     
-
-
-
-
-
-
 
 
 

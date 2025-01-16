@@ -36,11 +36,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    # custom chat app
+    'chat.apps.ChatConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
 
     # third party
@@ -49,7 +54,10 @@ INSTALLED_APPS = [
     # local
     'home',
     'accounts',
-    'blog'
+    'blog',
+
+    # also 3rd party
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -161,6 +169,15 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
+# ASGI, Chat, Channels, WebSockets
+ASGI_APPLICATION = 'core.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+
 # django_ckeditor_5
 customColorPalette = [
         {
@@ -254,4 +271,3 @@ CKEDITOR_5_CONFIGS = {
 
 # django_ckeditor_5
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "any"
-
