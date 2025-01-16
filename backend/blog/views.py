@@ -1,79 +1,55 @@
+from django.contrib.auth.decorators import login_required
+from typing import Any
+from django.db.models.query import QuerySet
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpRequest
+from django.views.generic import ListView
 
 
 
 # local imports
-from blog.forms import AddPostForm, AddPostFormV2
 from blog import forms
+from blog.models import Post
 
 
 
-# markdownx
+
+
 def add_post_view(request: HttpRequest):
     if request.method == "POST":
-        form = AddPostForm(request.POST)
+        form = forms.NewPostForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "NICE")
-            return redirect(reverse("home:index"))
-        else:
-            messages.error(request, "ERROR")
-            return redirect(reverse("blog:add"))
-    else:
-        form = AddPostForm()
-    return render(request, template_name='blog/new_post.html', context={"form": form})
-
-
-
-# summernote
-def add_post_view_v2(request: HttpRequest):
-    if request.method == "POST":
-        form = AddPostFormV2(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "NICE")
-            return redirect(reverse("home:index"))
-        else:
-            messages.error(request, "ERROR")
-            return redirect(reverse("blog:add2"))
-    else:
-        form = AddPostFormV2()
-    return render(request, template_name='blog/new_post_v2.html', context={"form": form})
-
-
-
-
-def add_post_view_v3(request: HttpRequest):
-    if request.method == "POST":
-        form = forms.AddPostFormV3(request.POST)
-        if form.is_valid():
-            form.save()
+            title = form.cleaned_data.get('title')
+            body = form.cleaned_data.get('body')
+            post_obj = Post(title=title, body=body, author_id=request.user.id)
+            post_obj.save()
             messages.success(request, "Ok")
             return redirect(reverse("home:index"))
         else:
             messages.error(request, "Error")
-            return redirect(reverse("blog:add3"))
+            return redirect(reverse("blog:new"))
     else:
-        form = forms.AddPostFormV3()
-    return render(request, template_name='blog/new_post_v3.html', context={'form': form})
+        form = forms.NewPostForm()
+    return render(request, template_name='blog/new_post.html', context={'form': form})
 
 
 
 
-def add_post_view_v4(request: HttpRequest):
-    if request.method == "POST":
-        form = forms.AddPostFormV4(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Ok")
-            return redirect(reverse("home:index"))
-        else:
-            messages.error(request, "Error")
-            return redirect(reverse("blog:add4"))
-    else:
-        form = forms.AddPostFormV4()
-    return render(request, template_name='blog/new_post_v4.html', context={'form': form})
+@login_required
+def get_users_posts(request: HttpRequest):
+    user_posts = Post.objects.filter(author=request.user).all()
+    print("\n\n", user_posts, "\n\n")
+    return render(request, template_name='blog/user_posts.html', context={'items': user_posts})
+
+
+
+
+class UserPostsListView(ListView):
+    model = Post
+
+    def get_queryset(self) -> QuerySet[Any]:
+        user = self.request.user
+        return Post.objects.filter(author=user)

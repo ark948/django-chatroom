@@ -5,9 +5,7 @@
 {% block content %}
   <h3>This is home</h3>
   {% if user.is_authenticated %}
-    <p><a href="{% url 'blog:add' %}">New blog post</a></p>
-    <p><a href="{% url 'blog:add2' %}">New blog post 2</a></p>
-    <p><a href="{% url 'blog:add3' %}">New blog post 3</a></p>
-    <p><a href="{% url 'blog:add4' %}">New blog post 4</a></p>
+    <p><a href="{% url 'blog:new' %}">New Blog Post</a></p>
+    <p><a href="{% url 'blog:users_list' %}">Your posts</a></p>
   {% endif %}
 {% endblock %}

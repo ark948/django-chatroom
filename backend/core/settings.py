@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party
-    'markdownx',
-    'django_summernote',
     'django_ckeditor_5',
 
     # local

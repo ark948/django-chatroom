@@ -1,19 +1,12 @@
-{% extends "_base.html" %}
-
-
-
-{% block title %}
-    New Blog
-{% endblock title %}
-
-
-
-{% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.title }}
-        {{ form.body | safe }}
-        <input type="submit" value="Submit">
-    </form>
+{% extends '_base.html' %}
+{% block header %}
     {{ form.media }}
-{% endblock content %}
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.title.label }}: {{ form.title }}
+        {{ form.body.label }}: {{ form.body }}
+        <input type="submit" value="Submit article">
+    </form>
+{% endblock %}
