@@ -27,12 +27,16 @@ from django.urls import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
-    path("accounts/", include("django.contrib.auth.urls")), # default auth provided by django
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('accounts-api/', include('accounts_api.urls')),
     path('chat/', include('chat.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     path("blog/", include("blog.urls")),
     path('', include('home.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 if settings.DEBUG:

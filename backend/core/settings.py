@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from environs import Env
 import os
+import dj_database_url
 
 env = Env()
 env.read_env()
@@ -47,6 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'daphne',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'accounts_api',
 
     # third party
     'django_ckeditor_5',
@@ -95,7 +99,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-import dj_database_url
+
 
 DATABASES = {
     'default': 
@@ -271,3 +275,12 @@ CKEDITOR_5_CONFIGS = {
 
 # django_ckeditor_5
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "any"
+
+
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}

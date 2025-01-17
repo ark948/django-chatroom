@@ -124,7 +124,12 @@ and maybe a blog with markdown support
     
 
 
-
+9. adding rest api token authentication + Redis (to check blocklisted tokens)
+    new app: accounts_api
+    we can use the DRF's own builtin Token or third party
+    add rest_framework authentication config to settings.py
+    
+    
 
 
 
@@ -135,4 +140,9 @@ user01@gmail.com
 
 user04
 user04@gmail.com
+test123*A
+
+
+user07
+user07@gmail.com
 test123*A
