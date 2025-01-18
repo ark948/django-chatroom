@@ -274,7 +274,7 @@ CKEDITOR_5_CONFIGS = {
 
 
 # django_ckeditor_5
-CKEDITOR_5_FILE_UPLOAD_PERMISSION = "any"
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "authenticated"
 
 
 
