@@ -1,9 +1,9 @@
 {% extends '_base.html' %}
-
+{% load markdown_extras %}
 
 
 {% block content %}
     {% for item in items %}
-        <p>{{ forloop.counter }}. {{ item.title }} - {{ item.body|safe }}</p>
+        <p>{{ forloop.counter }}. {{ item.title }} - {{ item.body | markdown | safe }}</p>
     {% endfor %}
 {% endblock %}
