@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'home',
     'accounts',
     'blog',
+    'students',
 
     # also 3rd party
     'channels',
@@ -211,10 +212,12 @@ customColorPalette = [
     ]
 
 # also django_ckeditor_5
+CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
+CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'txt']
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
-                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
+                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'fileUpload'],
 
     },
     'extends': {

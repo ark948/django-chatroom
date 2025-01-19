@@ -22,3 +22,11 @@ class NewPostForm(forms.ModelForm):
                   attrs={"class": "django_ckeditor_5"}, config_name="extends"
               )
           }
+
+
+
+
+
+class FileUploadForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()

@@ -129,6 +129,11 @@ and maybe a blog with markdown support
     we can use the DRF's own builtin Token or third party
     add rest_framework authentication config to settings.py
     
+
+
+10. new feature:
+    users (students) can upload pdf, img, text, word files
+    table relation: each can user can have many files (one to many)
     
 
 

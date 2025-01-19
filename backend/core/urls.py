@@ -32,6 +32,7 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     path("blog/", include("blog.urls")),
+    path('stduents/', include("students.urls")),
     path('', include('home.urls'))
 ]
 

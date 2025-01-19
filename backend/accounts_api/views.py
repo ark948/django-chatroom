@@ -15,7 +15,6 @@ from accounts.models import CustomUser
         
 
 
-# updates:
 
 class UserLoginAPIView(APIView):
     def post(self, request, *args, **kwargs):
@@ -52,6 +51,7 @@ class UserRegisterAPIView(APIView):
             return Response(resposne, status=status.HTTP_201_CREATED)
         raise ValidationError(serializer.errors, code=status.HTTP_406_NOT_ACCEPTABLE)
     
+
 
 class UserLogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]

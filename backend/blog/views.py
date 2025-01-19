@@ -53,3 +53,19 @@ class UserPostsListView(ListView):
     def get_queryset(self) -> QuerySet[Any]:
         user = self.request.user
         return Post.objects.filter(author=user)
+    
+
+
+
+
+@login_required
+def file_upload_view(request: HttpRequest):
+    if request.method == "POST":
+        form = forms.FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            print("\n\n", type(file), "\n\n")
+            return redirect(reverse("home:index"))
+    else:
+        form = forms.FileUploadForm()
+    return render(request, 'blog/file_upload.html', {'form': form})
