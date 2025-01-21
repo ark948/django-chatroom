@@ -1,0 +1,10 @@
+{% extends "_base.html" %}
+
+
+{% block content %}
+
+{% for item in items %}
+    <p>{{ forloop.counter }}. {{ item.title }} {{ item.file }} <a href="{% url 'students:item' item_id=item.id %}">view file</a></p>
+{% endfor %}
+
+{% endblock %}

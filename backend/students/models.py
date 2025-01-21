@@ -16,4 +16,4 @@ class StudentFile(models.Model):
     title = models.CharField('Title', max_length=50, null=False)
     file = models.FileField('File', upload_to=user_directory_path)
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='files')

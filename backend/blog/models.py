@@ -20,7 +20,7 @@ class TimeStampModel(models.Model):
 class Post(TimeStampModel):
     title = models.CharField('Title', max_length=200)
     body = CKEditor5Field('Body', config_name='extends')
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts')
 
     def __str__(self) -> str:
         return f"<Post Blog object {self.title}>"
