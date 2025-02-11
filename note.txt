@@ -136,6 +136,23 @@ and maybe a blog with markdown support
     table relation: each can user can have many files (one to many)
     
 
+11. internationalization and localization
+    contains:
+    translation of texts
+    formatting dates, times, numbers and time zones
+
+    translation:
+        translation hooks are added to various parts of the project that require translation (usually strings)
+        django extracts these translation strings to message files.
+        translators will provide translation in these message files.
+        GNU gettext will compile these files.
+
+        add django.middleware.locale.LocaleMiddleware to middlewares after session middleware and before common middleware
+        import gettext from django.utils.translation and add it to differnt parts of the project (i added it to a test view in home app)
+        next step is to create message files for a new language (locale names e.g. fa)
+        
+
+
 
 
 superuser:
